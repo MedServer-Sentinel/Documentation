@@ -1,0 +1,3 @@
+CREATE USER 'admin-medserver-sentinel'@'localhost' IDENTIFIED BY '#Gfgrupo4';
+GRANT ALL PRIVILEGES ON *.* TO 'admin-medserver-sentinel'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
