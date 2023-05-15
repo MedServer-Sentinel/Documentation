@@ -5,7 +5,7 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
--- drop database `bd-medserver-sentinel`;
+drop database `bd-medserver-sentinel`;
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
@@ -17,45 +17,6 @@ CREATE SCHEMA IF NOT EXISTS `bd-medserver-sentinel` DEFAULT CHARACTER SET utf8 ;
 USE `bd-medserver-sentinel` ;
 
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Empresa (
-  id_empresa INT NOT NULL auto_increment,
-  nome VARCHAR(45) NOT NULL,
-  responsavel VARCHAR(45)NOT NULL,
-  cnpj CHAR(45) NOT NULL,
-  cep CHAR(8) NOT NULL,
-  telefone CHAR(11) NOT NULL,
-  fk_empresa INT NULL,
-  PRIMARY KEY (id_empresa),
-  CONSTRAINT fk_Empresa_Empresa1
-    FOREIGN KEY (fk_empresa)
-    REFERENCES Empresa (id_empresa)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-INSERT INTO Empresa VALUES(null,"Testes","Gurpo4","000000000","00000000","00000000000",null);
--- -----------------------------------------------------
--- Table usuario
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Usuario (
-  id_usuario INT NOT NULL auto_increment,
-  nome VARCHAR(45) NOT NULL,
-  email VARCHAR(45) NOT NULL,
-  senha CHAR(8) NOT NULL,
-  cpf VARCHAR(45) NOT NULL,
-  fk_empresa INT NOT NULL,
-  tipo VARCHAR(10) NOT NULL,
-  PRIMARY KEY (id_usuario),
-  CONSTRAINT fk_usuario_Empresa1
-    FOREIGN KEY (fk_empresa)
-    REFERENCES Empresa (id_empresa)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-insert into usuario values(null, "EDU","123","123","asa",1,"aa");
-
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Maquina (
   id_maquina INT NOT NULL auto_increment,
   nome VARCHAR(45) NOT NULL,
@@ -63,16 +24,10 @@ CREATE TABLE IF NOT EXISTS Maquina (
   cod_MAC VARCHAR(45) NOT NULL,
   andar INT NOT NULL,
   setor VARCHAR(45) NOT NULL,
-  fk_empresa INT NOT NULL,
-  PRIMARY KEY (id_maquina),
-  CONSTRAINT fk_Maquina_Empresa1
-    FOREIGN KEY (fk_empresa)
-    REFERENCES Empresa (id_empresa)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (id_maquina))
 ENGINE = InnoDB;
 
-INSERT INTO Maquina VALUES(null,"Maquina de testes","Notebook","BFEBFBFF000806D1",1,"T.I",1);
+INSERT INTO Maquina VALUES(null,"Maquina de testes","Notebook","BFEBFBFF000806D1",1,"T.I");
 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS MemoriaRam (
