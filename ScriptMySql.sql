@@ -19,11 +19,11 @@ USE `bd-medserver-sentinel` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Maquina (
   id_maquina INT NOT NULL auto_increment,
-  nome VARCHAR(45) NOT NULL,
-  tipo VARCHAR(45) NOT NULL,
+  nome VARCHAR(45),
+  tipo VARCHAR(45),
   cod_MAC VARCHAR(45) NOT NULL,
-  andar VARCHAR(45) NOT NULL,
-  setor VARCHAR(45) NOT NULL,
+  andar VARCHAR(45),
+  setor VARCHAR(45),
   PRIMARY KEY (id_maquina))
 ENGINE = InnoDB;
 
