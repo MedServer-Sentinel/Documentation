@@ -203,11 +203,7 @@ if [ $? -eq 0 ]
 		sudo docker pull mysql:5.7
 		sudo docker run -d -p 3306:3306 --name ContainerMedServer -e "MYSQL_DATABASE=bd-medserver-sentinel" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
 		sudo docker exec -it ContainerMedServer bash
-		mysql -u root -p
-		medserver
-		DROP user 'root'@'localhost';
-		use bd-medserver-sentinel;
-		sql 
+		mysql -u root -p urubu100 -e "$sql" bd-medserver-sentinel
 		exit
 		exit
 		sudo docker ps -a
