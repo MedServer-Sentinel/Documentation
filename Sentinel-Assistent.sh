@@ -202,8 +202,7 @@ if [ $? -eq 0 ]
 		sudo docker run -d -p 3306:3306 --name ContainerMedServer -e "MYSQL_DATABASE=bd-medserver-sentinel" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
     sleep 3
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Vou acessar o bash do container e criar as tabelas!"
-		sudo docker exec -it ContainerMedServer bash
-		mysql -u root -p urubu100 -e "$sql" bd-medserver-sentinel
+		sudo docker exec -it ContainerMedServer bash -c "mysql -u root -p urubu100 -e "$sql" bd-medserver-sentinel"
 		exit
     sleep 3
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que finalizamos as configurações..."
