@@ -183,25 +183,40 @@ if [ $? -eq 0 ]
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Iremos configurar o container da sua aplicação, aguarde um instante!"
 		sleep 2
 		sudo apt update && sudo apt upgrade
+    sleep 2
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Atualizações de hardware efetuada com sucesso!"
+    sleep 2
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) :Só um momento, estou ajustando pré-definições de iniciação do docker..."
 		sudo systemctl start docker
+    sleep 2
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto! agora o docker será iniciado junto ao sistema!"
+    sleep 2
 		sudo systemctl enable docker
 		sleep 2
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Está quase lá, estou finalizando..."
-		sleep 2
+		sleep 4
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Estou baixando a imagem do mysql!"
 		sudo docker pull mysql:5.7
+    sleep 2
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto, baixei a imagem, agora vou criar o container com o mysql!"
 		sudo docker run -d -p 3306:3306 --name ContainerMedServer -e "MYSQL_DATABASE=bd-medserver-sentinel" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
+    sleep 3
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Vou acessar o bash do container e criar as tabelas!"
 		sudo docker exec -it ContainerMedServer bash
 		mysql -u root -p urubu100 -e "$sql" bd-medserver-sentinel
 		exit
-		exit
+    sleep 3
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que finalizamos as configurações..."
 		sudo docker ps -a
 		sleep 2
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tpu setaf 7) : Container criado com sucesso! :D"
-		sleep 2
-		echo "$(tput setaf 10)[Sentinel Bot]:$(tpu setaf 7) : Aguarde um instante, estou baixando a aplicação!"
+		sleep 3
+		echo "$(tput setaf 10)[Sentinel Bot]:$(tpu setaf 7) : Aguarde um instante, agora vamos baixar a aplicação!"
+    sleep 4
 		git clone https://github.com/MedServer-Sentinel/Backend-MedControll.git
-		sleep 2
+		sleep 3
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : A aplicação já foi baixada, aguarde um instante estou movendo o arquivo para a área de trabalho!"
+    sleep 2
 		mv Backend-MedControll /Documents/Backend-MedControll/
 		sleep 2
 		cd /Documents/Backend-MedControll/target
