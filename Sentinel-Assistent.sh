@@ -175,14 +175,14 @@ if [ $? -eq 0 ]
 		sleep 2
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Agora iremos verificar se você possui o docker instalado!!"
 		sleep 2
-		docker -version
+		docker --version
 		if [ $? -eq 0 ]
 		then
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Você já possui o docker instalado!!"
 		sleep 2
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Iremos configurar o container da sua aplicação, aguarde um instante!"
 		sleep 2
-		sudo apt update -y && sudo apt upgrade -y
+		sudo apt update && sudo apt upgrade
 		sudo systemctl start docker
 		sudo systemctl enable docker
 		sleep 2
