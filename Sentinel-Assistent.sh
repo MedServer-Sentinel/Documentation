@@ -173,18 +173,17 @@ if [ $? -eq 0 ]
 	then
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Olá você já tem o java instalado!!"
 		sleep 2
-		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Agora iremos verificar se você possui o docker instalado!!"
+		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Agora iremos verificar se você possui o docker instalado, mas antes iremos atualizar sua máquina!!"
 		sleep 2
+		sudo apt update -y && sudo apt upgrade -y
+    sleep 2
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Atualizações de hardware efetuada com sucesso!"
 		docker --version
 		if [ $? -eq 0 ]
 		then
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Você já possui o docker instalado!!"
 		sleep 2
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Iremos configurar o container da sua aplicação, aguarde um instante!"
-		sleep 2
-		sudo apt update && sudo apt upgrade
-    sleep 2
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Atualizações de hardware efetuada com sucesso!"
     sleep 2
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) :Só um momento, estou ajustando pré-definições de iniciação do docker..."
 		sudo systemctl start docker
@@ -200,9 +199,9 @@ if [ $? -eq 0 ]
     sleep 2
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto, baixei a imagem, agora vou criar o container com o mysql!"
 		sudo docker run -d -p 3306:3306 --name ContainerMedServer -e "MYSQL_DATABASE=bd-medserver-sentinel" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
-    sleep 3
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Vou acessar o bash do container e criar as tabelas!"
-		sudo docker exec -it ContainerMedServer bash -c "mysql -u root --password='urubu100' -e '$sql'"
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um momento, vou acessar o bash do container e criar as tabelas!"
+    sleep 30
+		sudo docker exec -it ContainerMedServer  mysql -u root -purubu100 bd-medserver-sentinel -e "$sql"
     sleep 3
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que finalizamos as configurações..."
 		sudo docker ps -a
@@ -212,11 +211,11 @@ if [ $? -eq 0 ]
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tpu setaf 7) : Aguarde um instante, agora vamos baixar a aplicação!"
     sleep 4
 		git clone https://github.com/MedServer-Sentinel/Backend-MedControll.git
-		sleep 3
+		sleep 10
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : A aplicação já foi baixada, aguarde um instante estou movendo o arquivo para a área de trabalho!"
-    sleep 2
+    sleep 10
 		mv Backend-MedControll /Documents/Backend-MedControll/
-		sleep 2
+		sleep 10
 		cd /Documents/Backend-MedControll/target
 		cp med-controll-1.0-SNAPSHOT-jar-with-dependencies /Desktop/med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
 		sleep 2
