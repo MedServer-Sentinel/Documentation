@@ -7,7 +7,7 @@ VERSAO=11
 pasta_origem="$HOME/Desktop/Backend-MedControll"
 diretorio_destino="$HOME/Documents/"
 
-sql = "
+sql = '
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -162,7 +162,7 @@ ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;"
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;'
 	
 echo  "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Olá usuário, me chamo Sentinel e serei seu assistente para instalação do Java!;"
 sleep 2
@@ -204,7 +204,7 @@ if [ $? -eq 0 ]
 		sudo docker run -d -p 3306:3306 --name ContainerMedServer -e "MYSQL_DATABASE=bd-medserver-sentinel" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um momento, vou acessar o bash do container e criar as tabelas!"
     sleep 30
-    sudo docker exec -i ContainerMedServer sh -c 'mysql -u root -purubu100 bd-medserver-sentinel <<< "$sql"'
+    sudo docker exec -i ContainerMedServer sh -c 'echo "$sql" | mysql -u root -p -D bd-medserver-sentinel --password=urubu100'
     sleep 3
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que finalizamos as configurações..."
 		sudo docker ps -a
