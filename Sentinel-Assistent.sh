@@ -4,6 +4,9 @@ PURPLE='0;35'
 NC='\033[0m' 
 VERSAO=11
 
+pasta_origem="$HOME/Desktop/Backend-MedControll"
+diretorio_destino="$HOME/Documents/"
+
 sql = "
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -201,7 +204,7 @@ if [ $? -eq 0 ]
 		sudo docker run -d -p 3306:3306 --name ContainerMedServer -e "MYSQL_DATABASE=bd-medserver-sentinel" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um momento, vou acessar o bash do container e criar as tabelas!"
     sleep 30
-    sudo docker exec -i ContainerMedServer mysql -u root -purubu100 bd-medserver-sentinel <<< "$sql;"
+    sudo docker exec -i ContainerMedServer mysql -u root -p'urubu100' bd-medserver-sentinel <<< "$sql;"
     sleep 3
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que finalizamos as configurações..."
 		sudo docker ps -a
@@ -214,10 +217,10 @@ if [ $? -eq 0 ]
 		sleep 10
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : A aplicação já foi baixada, aguarde um instante estou movendo o arquivo para a área de trabalho!"
     sleep 10
-		mv Backend-MedControll /Documents/Backend-MedControll/
+		mv "$pasta_origem" "$diretorio_destino"
 		sleep 10
-		cd /Documents/Backend-MedControll/target
-		cp med-controll-1.0-SNAPSHOT-jar-with-dependencies /Desktop/med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
+		cd "$HOME/Documents/Backend-MedControll/target"
+		cp med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar "$HOME/Desktop/"
 		sleep 2
 		echo "$(tpu setaf 10)[Sentinel Bot]:$(tpu setaf 7) : Pronto :D ! Agora você pode executar sua aplicação, deseja iniciá-la agora? [Y/n]?"
 		read inst
