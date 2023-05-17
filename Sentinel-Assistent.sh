@@ -11,8 +11,8 @@ sql = "
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-CREATE SCHEMA IF NOT EXISTS `bd-medserver-sentinel` DEFAULT CHARACTER SET utf8 ;
-USE `bd-medserver-sentinel` ;
+CREATE SCHEMA IF NOT EXISTS bd-medserver-sentinel DEFAULT CHARACTER SET utf8 ;
+USE bd-medserver-sentinel ;
 
 CREATE TABLE IF NOT EXISTS Maquina (
   id_maquina INT NOT NULL auto_increment,
@@ -204,14 +204,14 @@ if [ $? -eq 0 ]
 		sudo docker run -d -p 3306:3306 --name ContainerMedServer -e "MYSQL_DATABASE=bd-medserver-sentinel" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um momento, vou acessar o bash do container e criar as tabelas!"
     sleep 30
-    sudo docker exec -i ContainerMedServer mysql -u root -p'urubu100' bd-medserver-sentinel <<< "$sql;"
+    sudo docker exec -i ContainerMedServer "mysql -u root -purubu100 <<< '$sql'"
     sleep 3
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que finalizamos as configurações..."
 		sudo docker ps -a
 		sleep 2
-		echo "$(tput setaf 10)[Sentinel Bot]:$(tpu setaf 7) : Container criado com sucesso! :D"
+		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Container criado com sucesso! :D"
 		sleep 3
-		echo "$(tput setaf 10)[Sentinel Bot]:$(tpu setaf 7) : Aguarde um instante, agora vamos baixar a aplicação!"
+		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um instante, agora vamos baixar a aplicação!"
     sleep 4
 		git clone https://github.com/MedServer-Sentinel/Backend-MedControll.git
 		sleep 10
@@ -222,7 +222,7 @@ if [ $? -eq 0 ]
 		cd "$HOME/Documents/Backend-MedControll/target"
 		cp med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar "$HOME/Desktop/"
 		sleep 2
-		echo "$(tpu setaf 10)[Sentinel Bot]:$(tpu setaf 7) : Pronto :D ! Agora você pode executar sua aplicação, deseja iniciá-la agora? [Y/n]?"
+		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto :D ! Agora você pode executar sua aplicação, deseja iniciá-la agora? [Y/n]?"
 		read inst
 		if [ \"$inst\" == \"Y\" ]
 			then
