@@ -214,7 +214,7 @@ java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
 echo 'executando java.'
 EOF
 		sleep 10
-		cd "$diretorio_destino"
+		cd "$diretorio_destino2"
 		git checkout dev
 		sleep 2
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto :D ! Agora você pode executar sua aplicação, deseja iniciá-la agora? [s/n]?"
