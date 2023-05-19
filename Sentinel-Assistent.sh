@@ -207,7 +207,7 @@ if [ $? -eq 0 ]
     sleep 10
 		mv "$pasta_origem" "$diretorio_destino"
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Criando executável na área de trabalho!"
-    cat > med_server.sh <<EOF
+    nano -S med_server.sh <<EOF
 #!/bin/bash
 cd "$diretorio_destino2"
 java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
