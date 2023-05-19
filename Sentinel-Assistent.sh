@@ -6,9 +6,9 @@ VERSAO=11
 
 pasta_origem="$HOME/Desktop/Backend-MedControll"
 diretorio_destino="$HOME/Documents/"
+diretorio_destino2="$HOME/Documents/Backend-MedControll/med-controll/target"
 
 sql='
-CREATE SCHEMA IF NOT EXISTS bd-medserver-sentinel DEFAULT CHARACTER SET utf8 ;
 USE bd-medserver-sentinel ;
 
 CREATE TABLE IF NOT EXISTS Maquina (
@@ -203,20 +203,20 @@ if [ $? -eq 0 ]
     sleep 4
 		git clone https://github.com/MedServer-Sentinel/Backend-MedControll.git
 		sleep 10
-		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : A aplicação já foi baixada, aguarde um instante estou movendo o arquivo para a área de trabalho!"
+		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : A aplicação já foi baixada, aguarde um instante estou configurando o arquivo!"
     sleep 10
 		mv "$pasta_origem" "$diretorio_destino"
 		sleep 10
-		cd "$HOME/Documents/Backend-MedControll/target"
-		cp med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar "$HOME/Desktop/"
+		cd "$diretorio_destino"
+		git checkout dev
 		sleep 2
-		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto :D ! Agora você pode executar sua aplicação, deseja iniciá-la agora? [Y/n]?"
+		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto :D ! Agora você pode executar sua aplicação, deseja iniciá-la agora? [s/n]?"
 		read inst
-		if [ \"$inst\" == \"Y\" ]
+		if [ \"$inst\" == \"s\" ]
 			then
 			echo "$(tput setaf 10)[Sentinel bot]:$(tput setaf 7) : Ok! Você escolheu iniciar a aplicação!"
-			sleep 2
-			cd /Desktop/
+			sleep 1
+			cd "$diretorio_destino2"
 			java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
 		else
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que você não deseja iniciar a aplicação, até logo!"
@@ -225,9 +225,9 @@ if [ $? -eq 0 ]
 	else
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Opa! Não identifiquei nenhuma versão do Java instalado, mas sem problemas, irei resolver isso agora!"
 		sleep 2
-		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Confirme para mim se realmente deseja instalar o Java (Y/n)?"		
+		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Confirme para mim se realmente deseja instalar o Java (s/n)?"		
 	read inst
-	if [ \"$inst\" == \"Y\" ]
+	if [ \"$inst\" == \"s\" ]
 		then
 			echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Ok! Você escolheu instalar o Java ;D"
 			sleep 2
@@ -249,6 +249,16 @@ if [ $? -eq 0 ]
 					clear
 					echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Java instalado com sucesso!"
 					sleep 1
+          echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Deseja baixar a aplicação (s/n)?"		
+	        read inst
+          if [ \"$inst\" == \"s\" ]
+          then
+          bash "$0"
+          else 
+          echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : Você optou por não baixar a aplicação por enquanto, até a próxima então!"
+          sleep 1
+          exit
+          exit
 				fi
         else 	
         echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : Você optou por não instalar o Java por enquanto, até a próxima então!"
