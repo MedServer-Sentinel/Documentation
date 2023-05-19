@@ -213,7 +213,6 @@ if [ $? -eq 0 ]
     echo "echo 'executando java.'" >> med_server.sh
   # Permissão de execução para o novo script
     chmod +x med_server.sh
-
 		sleep 10
 		cd "$diretorio_destino"
 		git checkout dev
