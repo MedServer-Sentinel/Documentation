@@ -207,12 +207,12 @@ if [ $? -eq 0 ]
     sleep 10
 		mv "$pasta_origem" "$diretorio_destino"
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Criando executável na área de trabalho!"
-    echo "#!/bin/bash" > med_server.sh
-    echo "cd '$diretorio_destino2' " >> med_server.sh
-    echo "java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar" >> med_server.sh
-    echo "echo 'executando java.'" >> med_server.sh
-  # Permissão de execução para o novo script
-    chmod +x med_server.sh
+    cat > med_server.sh <<EOF
+#!/bin/bash
+cd "$diretorio_destino2"
+java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
+echo 'executando java.'
+EOF
 		sleep 10
 		cd "$diretorio_destino"
 		git checkout dev
@@ -227,7 +227,6 @@ if [ $? -eq 0 ]
 			java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
 		else
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que você não deseja iniciar a aplicação, até logo!"
-
 		fi
 	else
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Opa! Não identifiquei nenhuma versão do Java instalado, mas sem problemas, irei resolver isso agora!"
@@ -273,7 +272,7 @@ if [ $? -eq 0 ]
 	  fi
   fi
   fi
-
+  fi
 # ===================================================================
 # Todos direitos reservados para o autor: Dra. Profa. Marise Miranda.
 # Sob licença Creative Commons @2020
