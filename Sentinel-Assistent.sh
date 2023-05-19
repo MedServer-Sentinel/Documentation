@@ -206,6 +206,14 @@ if [ $? -eq 0 ]
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : A aplicação já foi baixada, aguarde um instante estou configurando o arquivo!"
     sleep 10
 		mv "$pasta_origem" "$diretorio_destino"
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Criando executável na área de trabalho!"
+    echo "#!/bin/bash" > med_server.sh
+    echo "cd '$diretorio_destino2' " >> med_server.sh
+    echo "java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar" >> med_server.sh
+    echo "echo 'executando java.'" >> med_server.sh
+  # Permissão de execução para o novo script
+    chmod +x med_server.sh
+
 		sleep 10
 		cd "$diretorio_destino"
 		git checkout dev
