@@ -209,6 +209,8 @@ if [ $? -eq 0 ]
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Criando executável na área de trabalho!"
     echo '#!/bin/bash
 cd "$diretorio_destino2"
+sudo docker start ContainerMedServer
+sleep 5
 java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
 echo "executando java."
 ' | tee med_server.sh > /dev/null
