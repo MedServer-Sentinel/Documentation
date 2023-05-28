@@ -171,8 +171,7 @@ else
 
         echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Preparando para instalar o Java 17. Confirme a instalação quando solicitado."
         sleep 1
-        sudo apt install default-jre -y
-        sudo apt install openjdk-17-jre-headless -y
+        sudo apt install openjdk-17-jre -y
         clear
         echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Java instalado com sucesso!"
         sleep 1
