@@ -261,7 +261,7 @@ if [ $? -eq 0 ]
 	        read inst
           if [ \"$inst\" == \"s\" ]
           then
-          bash -c "sudo source Sentinel-Assistent.sh"
+          sudo bash -c "source Sentinel-Assistent.sh"
           else 
           echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : Você optou por não baixar a aplicação por enquanto, até a próxima então!"
           sleep 1
