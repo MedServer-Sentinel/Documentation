@@ -154,124 +154,132 @@ ENGINE = InnoDB;'
 	
 #!/bin/bash
 
-echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Olá usuário, me chamo Sentinel e serei seu assistente para instalação do Java!"
+#!/bin/bash
+
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Olá usuário, me chamo Sentinel e serei seu assistente para a instalação do Java!"
 sleep 2
-echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Vamos verificar se você possui o Java instalado?"
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Vamos verificar se você possui o Java instalado."
 sleep 2
 
 java -version
 if [ $? -eq 0 ]; then
     echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Olá, você já tem o Java instalado!"
     sleep 2
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Agora iremos verificar se você possui o Docker instalado. Mas antes, vamos atualizar sua máquina!"
+else
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Opa! Não identifiquei nenhuma versão do Java instalada, mas sem problemas, irei resolver isso agora."
     sleep 2
-    sudo apt update -y && sudo apt upgrade -y
-    sleep 2
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Atualizações de hardware efetuadas com sucesso!"
-    docker --version
-    if [ $? -eq 0 ]; then
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Você já possui o Docker instalado!"
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Confirme para mim se realmente deseja instalar o Java (s/n)?"
+    read inst
+    if [ "$inst" == "s" ]; then
+        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Ok! Você escolheu instalar o Java."
         sleep 2
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Iremos configurar o container da sua aplicação. Aguarde um instante!"
+        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Adicionando o repositório."
         sleep 2
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Só um momento, estou ajustando pré-definições de iniciação do Docker..."
-        sudo systemctl start docker
+        sudo add-apt-repository ppa:webupd8team/java -y
+        clear
+        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Atualizando pacotes. Quase lá."
         sleep 2
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto! Agora o Docker será iniciado junto ao sistema!"
-        sleep 2
-        sudo systemctl enable docker
-        sleep 2
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Está quase lá, estou finalizando..."
-        sleep 4
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Estou baixando a imagem do MySQL!"
-        sudo docker pull mysql:5.7
-        sleep 2
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto, baixei a imagem. Agora vou criar o container com o MySQL!"
-        sudo docker run -d -p 3306:3306 --name ContainerMedServer -e "MYSQL_DATABASE=bd-medserver-sentinel" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um momento, vou acessar o bash do container e criar as tabelas!"
-        sleep 15
-        echo "$sql" | sudo docker exec -i ContainerMedServer mysql -u root -purubu100 -h localhost bd-medserver-sentinel
-        sleep 3
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que finalizamos as configurações..."
-        sudo docker ps -a
-        sleep 2
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Container criado com sucesso!"
-        sleep 3
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um instante, agora vamos baixar a aplicação!"
-        sleep 4
-        git clone https://github.com/MedServer-Sentinel/Backend-MedControll.git
-        sleep 10
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : A aplicação já foi baixada. Aguarde um instante, estou configurando o arquivo!"
-        sleep 10
-        mv "$pasta_origem" "$diretorio_destino"
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Criando executável na área de trabalho!"
-        echo '#!/bin/bash
-        cd "$diretorio_destino2"
-        sudo docker start ContainerMedServer
-        sleep 5
-        java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
-        echo "Executando Java."
-        ' | tee med_server.sh > /dev/null
+        sudo apt update -y
+        sudo apt upgrade -y
+        clear
 
-        chmod +x med_server.sh
-
-        sleep 10
-        cd "$diretorio_destino2"
-        git checkout dev
-        sleep 2
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto! Agora você pode executar sua aplicação. Deseja iniciá-la agora? [s/n]"
-        read inst
-        if [ "$inst" == "s" ]; then
-            echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Ok! Você escolheu iniciar a aplicação!"
-            sleep 1
-            cd "$diretorio_destino2"
-            java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
-        else
-            echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que você não deseja iniciar a aplicação. Até logo!"
-        fi
+        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Preparando para instalar o Java 17. Confirme a instalação quando solicitado."
+        sleep 1
+        sudo apt install default-jre -y
+        sudo apt install openjdk-17-jre-headless -y
+        clear
+        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Java instalado com sucesso!"
+        sleep 1
     else
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Opa! Não identifiquei nenhuma versão do Java instalada, mas sem problemas, irei resolver isso agora!"
-        sleep 2
-        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Confirme para mim se realmente deseja instalar o Java (s/n)?"
-        read inst
-        if [ "$inst" == "s" ]; then
-            echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Ok! Você escolheu instalar o Java!"
-            sleep 2
-            echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Adicionando o repositório!"
-            sleep 2
-            sudo add-apt-repository ppa:webupd8team/java -y
-            clear
-            echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Atualizando pacotes! Quase lá."
-            sleep 2
-            sudo apt update -y
-            sudo apt upgrade -y
-            clear
-
-            if [ "$VERSAO" -eq 11 ]; then
-                echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Preparando para instalar a versão 17 do Java. Confirme a instalação quando solicitado!"
-                sleep 1
-                sudo apt install default-jre -y
-                sudo apt install openjdk-17-jre-headless -y
-                clear
-                echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Java instalado com sucesso!"
-                sleep 1
-                echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Deseja baixar a aplicação (s/n)?"
-                read inst
-                if [ "$inst" == "s" ]; then
-                    sudo bash -c "source Sentinel-Assistent.sh"
-                else
-                    echo "$(tput setaf 10)[Bot Assistant]:$(tput setaf 7) : Você optou por não baixar a aplicação por enquanto. Até a próxima então!"
-                    sleep 1
-                    exit
-                fi
-            else
-                echo "$(tput setaf 10)[Bot Assistant]:$(tput setaf 7) : Você optou por não instalar o Java por enquanto. Até a próxima então!"
-                sleep 1
-                exit
-            fi
-        fi
+        echo "$(tput setaf 10)[Bot Assistant]:$(tput setaf 7) : Você optou por não instalar o Java por enquanto. Até a próxima então!"
+        sleep 1
+        exit
     fi
 fi
+
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Agora iremos verificar se você possui o Docker instalado. Mas antes, vamos atualizar sua máquina!"
+sleep 2
+sudo apt update -y && sudo apt upgrade -y
+sleep 2
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Atualizações de hardware efetuadas com sucesso!"
+docker --version
+if [ $? -eq 0 ]; then
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Você já possui o Docker instalado!"
+    sleep 2
+else
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Opa! Parece que você não tem o Docker instalado."
+    sleep 2
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Confirme para mim se realmente deseja instalar o Docker (s/n)?"
+    read inst
+    if [ "$inst" == "s" ]; then
+        echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Ok! Você escolheu instalar o Docker."
+        sleep 2
+        sudo apt install docker.io -y
+    else
+        echo "$(tput setaf 10)[Bot Assistant]:$(tput setaf 7) : Você optou por não instalar o Docker. Até a próxima então!"
+        sleep 1
+        exit
+    fi
+fi
+
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Iremos configurar o container da sua aplicação. Aguarde um instante!"
+sleep 2
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Só um momento, estou ajustando pré-definições de inicialização do Docker."
+sudo systemctl start docker
+sleep 2
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto! Agora o Docker será iniciado junto ao sistema."
+sleep 2
+sudo systemctl enable docker
+sleep 2
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Está quase lá, estou finalizando."
+sleep 4
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Estou baixando a imagem do MySQL."
+sudo docker pull mysql:5.7
+sleep 2
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto, baixei a imagem. Agora vou criar o container com o MySQL."
+sudo docker run -d -p 3306:3306 --name ContainerMedServer -e "MYSQL_DATABASE=bd-medserver-sentinel" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um momento, vou acessar o bash do container e criar as tabelas."
+sleep 15
+echo "$sql" | sudo docker exec -i ContainerMedServer mysql -u root -purubu100 -h localhost bd-medserver-sentinel
+sleep 3
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que finalizamos as configurações."
+sudo docker ps -a
+sleep 2
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Container criado com sucesso!"
+sleep 3
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um instante, agora vamos baixar a aplicação."
+sleep 4
+git clone https://github.com/MedServer-Sentinel/Backend-MedControll.git
+sleep 10
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : A aplicação já foi baixada. Aguarde um instante, estou configurando o arquivo."
+sleep 10
+mv "$pasta_origem" "$diretorio_destino"
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Criando executável na área de trabalho!"
+echo '#!/bin/bash
+cd "$diretorio_destino2"
+sudo docker start ContainerMedServer
+sleep 5
+java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
+echo "Executando Java."
+' | tee med_server.sh > /dev/null
+
+chmod +x med_server.sh
+
+sleep 10
+cd "$diretorio_destino2"
+git checkout dev
+sleep 2
+echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto! Agora você pode executar sua aplicação. Deseja iniciá-la agora? [s/n]"
+read inst
+if [ "$inst" == "s" ]; then
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Ok! Você escolheu iniciar a aplicação!"
+    sleep 1
+    cd "$diretorio_destino2"
+    java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
+else
+    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que você não deseja iniciar a aplicação. Até logo!"
+fi
+
 
 # ===================================================================
 # Todos direitos reservados para o autor: Dra. Profa. Marise Miranda.
