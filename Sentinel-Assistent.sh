@@ -21,8 +21,6 @@ setor VARCHAR(45),
 PRIMARY KEY (id_maquina))
 ENGINE = InnoDB;
 
-INSERT INTO Maquina VALUES(null,"Maquina de testes","Notebook","BFEBFBFF000806D1",1,"T.I");
-
 CREATE TABLE IF NOT EXISTS MemoriaRam (
 id_ram INT NOT NULL auto_increment,
 capacidade_total VARCHAR(45) NOT NULL,
@@ -69,6 +67,7 @@ pid INT NOT NULL,
 nome VARCHAR(45) NOT NULL,
 uso_cpu DOUBLE NOT NULL,
 uso_ram DOUBLE NOT NULL,
+data_hora DATETIME NOT NULL,
 fk_processador INT NOT NULL,
 PRIMARY KEY (id_processo),
 CONSTRAINT fk_pross_cpu1
@@ -83,6 +82,7 @@ id_janela INT NOT NULL auto_increment,
 pid INT NOT NULL,
 titulo VARCHAR(200) NOT NULL,
 comando VARCHAR(200) NOT NULL,
+data_hora DATETIME NOT NULL,
 fk_processador INT NOT NULL,
 PRIMARY KEY (id_janela),
 CONSTRAINT fk_janela_cpu1
@@ -119,20 +119,6 @@ PRIMARY KEY (id_dados_disco),
 CONSTRAINT fk_Disco_disco1
 FOREIGN KEY (fk_disco)
 REFERENCES Disco (id_disco)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS Parametro (
-id_parametro int auto_increment not null,
-significativo INT NOT NULL,
-moderado INT NOT NULL,
-critico INT NOT NULL,
-fk_maquina INT NOT NULL,
-PRIMARY KEY (id_parametro),
-CONSTRAINT fk_parametros_Maquina1
-FOREIGN KEY (fk_maquina)
-REFERENCES Maquina (id_maquina)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -267,7 +253,7 @@ chmod +x med_server.sh
 
 sleep 10
 cd "$diretorio_destino2"
-git checkout dev
+git checkout log
 sleep 2
 echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto! Agora você pode executar sua aplicação. Deseja iniciá-la agora? [s/n]"
 read inst
