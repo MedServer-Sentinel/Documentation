@@ -157,8 +157,6 @@ sleep 2
 echo  "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Vamos verificar se você possui o Java instalado?;"
 sleep 2
 
-
-
 java -version
 if [ $? -eq 0 ]
 	then
@@ -167,55 +165,55 @@ if [ $? -eq 0 ]
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Agora iremos verificar se você possui o docker instalado, mas antes iremos atualizar sua máquina!!"
 		sleep 2
 		sudo apt update -y && sudo apt upgrade -y
-    sleep 2
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Atualizações de hardware efetuada com sucesso!"
+    	sleep 2
+    	echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Atualizações de hardware efetuada com sucesso!"
 		docker --version
 		if [ $? -eq 0 ]
 		then
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Você já possui o docker instalado!!"
 		sleep 2
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Iremos configurar o container da sua aplicação, aguarde um instante!"
-    sleep 2
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) :Só um momento, estou ajustando pré-definições de iniciação do docker..."
+    	sleep 2
+    	echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) :Só um momento, estou ajustando pré-definições de iniciação do docker..."
 		sudo systemctl start docker
-    sleep 2
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto! agora o docker será iniciado junto ao sistema!"
-    sleep 2
+    	sleep 2
+    	echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto! agora o docker será iniciado junto ao sistema!"
+    	sleep 2
 		sudo systemctl enable docker
 		sleep 2
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Está quase lá, estou finalizando..."
 		sleep 4
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Estou baixando a imagem do mysql!"
+    	echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Estou baixando a imagem do mysql!"
 		sudo docker pull mysql:5.7
-    sleep 2
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto, baixei a imagem, agora vou criar o container com o mysql!"
+    	sleep 2
+    	echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto, baixei a imagem, agora vou criar o container com o mysql!"
 		sudo docker run -d -p 3306:3306 --name ContainerMedServer -e "MYSQL_DATABASE=bd-medserver-sentinel" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um momento, vou acessar o bash do container e criar as tabelas!"
-    sleep 15
-    echo "$sql" | sudo docker exec -i ContainerMedServer mysql -u root -purubu100 -h localhost bd-medserver-sentinel
-    sleep 3
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que finalizamos as configurações..."
+    	echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um momento, vou acessar o bash do container e criar as tabelas!"
+    	sleep 15
+    	echo "$sql" | sudo docker exec -i ContainerMedServer mysql -u root -purubu100 -h localhost bd-medserver-sentinel
+    	sleep 3
+    	echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Parece que finalizamos as configurações..."
 		sudo docker ps -a
 		sleep 2
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Container criado com sucesso! :D"
 		sleep 3
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Aguarde um instante, agora vamos baixar a aplicação!"
-    sleep 4
+    	sleep 4
 		git clone https://github.com/MedServer-Sentinel/Backend-MedControll.git
 		sleep 10
 		echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : A aplicação já foi baixada, aguarde um instante estou configurando o arquivo!"
-    sleep 10
+    	sleep 10
 		mv "$pasta_origem" "$diretorio_destino"
-    echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Criando executável na área de trabalho!"
-    echo '#!/bin/bash
-cd "$diretorio_destino2"
-sudo docker start ContainerMedServer
-sleep 5
-java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
-echo "executando java."
-' | tee med_server.sh > /dev/null
+    	echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Criando executável na área de trabalho!"
+    	echo '#!/bin/bash
+		cd "$diretorio_destino2"
+		sudo docker start ContainerMedServer
+		sleep 5
+		java -jar med-controll-1.0-SNAPSHOT-jar-with-dependencies.jar
+		echo "executando java."
+		' | tee med_server.sh > /dev/null
 
-chmod +x med_server.sh
+		chmod +x med_server.sh
 
 		sleep 10
 		cd "$diretorio_destino2"
@@ -263,7 +261,7 @@ chmod +x med_server.sh
 	        read inst
           if [ \"$inst\" == \"s\" ]
           then
-          bash "$0"
+          "$0"
           else 
           echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : Você optou por não baixar a aplicação por enquanto, até a próxima então!"
           sleep 1

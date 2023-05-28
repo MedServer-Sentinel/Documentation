@@ -1,0 +1,39 @@
+---------------- PASSO A PASSO ---------------------
+
+1 - Certifique-se que o sistema utilizado é Linux;
+
+2 - Ao baixar o zip, você deve mover o arquivo Sentinel-Assistent.sh, para sua área de trabalho(Desktop);
+
+3 - Abra um terminal bash para dar permissões de execução para o script;
+
+4 - Ao abrir o terminal digite:
+
+- sudo chmod +x Sentinel-Assistent.sh
+
+5 - Em seguida, utilize o comando:
+
+sudo ls
+
+Este comando irá listar todos os arquivos da sua área de trabalho(Desktop), encontre o arquivo do script
+e verifique se o mesmo está verde. Se estiver, significa que as permissões foram passadas corretamente.
+
+6 - Agora, no mesmo terminal execute o comando:
+
+sudo source Sentinel-Assistent.sh
+
+Este comando irá rodar o script e caso sua máquina não estiver atualizada, ele mesmo irá atualizar.
+Porém, ao atualizá-la, a máquina é reiniciada e você deve executar o mesmo comando acima para rodar
+o script novamente;
+
+
+7 - Por fim, verifique se um novo arquivo executável foi criado na área de trabalho, este arquivo serve
+para você executar a aplicação sem a necessidade de rodar o script novamente;
+
+8 - Para executar este novo arquivo, basta abrir um novo bash e executar:
+
+source med_server.sh
+
+Ele irá rodar a aplicação sem passar por todas as etapas do script Sentinel-Assistent.sh, que serve
+apenas como instalador.
+
+
