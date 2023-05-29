@@ -241,6 +241,7 @@ sleep 10
 mv "$pasta_origem" "$diretorio_destino"
 echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Criando executável na área de trabalho!"
 echo '#!/bin/bash
+diretorio_destino2="$HOME/Documents/Backend-MedControll/med-controll/target"
 cd "$diretorio_destino2"
 sudo docker start ContainerMedServer
 sleep 5
