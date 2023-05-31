@@ -253,7 +253,7 @@ chmod +x med_server.sh
 
 sleep 10
 cd "$diretorio_destino2"
-git checkout dev
+git checkout inspecaoJava
 sleep 2
 echo "$(tput setaf 10)[Sentinel Bot]:$(tput setaf 7) : Pronto! Agora você pode executar sua aplicação. Deseja iniciá-la agora? [s/n]"
 read inst
